@@ -1,0 +1,482 @@
+/* Reset styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Default: Moonlight Theme */
+:root {
+  --bg-color: #0d1b2a;
+  --text-color: 224,225,221;
+  --primary-color: beige;
+  --secondary-color: #1b263b;
+  --overlay-color: rgba(10, 25, 47, 0.7);
+}
+
+/* Light Mode */
+:root:has(#theme-toggle:checked) {
+  --bg-color: #bdedf5;
+  --text-color: 45,58,74;
+  --primary-color: #3d5a80;
+  --secondary-color: rgba(150, 190, 250,0.4);
+  --overlay-color: rgb(134, 235, 255);
+}
+
+/* Apply global styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-color);
+  color: rgb(var(--text-color));
+  scroll-behavior: smooth;
+  transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
+  animation: fadeIn 2s ease-in;
+  scroll-behavior: smooth;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Header - Fixed with Flexbox */
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 1rem 5%;
+  z-index: 1000;
+}
+
+/* Navigation Bar */
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-list li a {
+  text-decoration: none;
+  display: inline-block;
+  color: rgb(var(--text-color));
+  font-weight: 600;
+  transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease-in-out;
+}
+
+.nav-list li a:hover {
+  /* color: var(--primary-color); */
+  text-shadow: 0 0 25px #f4e4c1, 0 0 5px rgb(245, 245, 245) ;
+  transform: translateY(2px);
+}
+
+/* Toggle Switch */
+.toggle-switch {
+  margin-left: 20px;
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--secondary-color);
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "🌙";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 3.5px;
+  background-color: rgb(var(--text-color));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+/* Move slider when checked */
+.toggle-switch input:checked + .slider {
+  background-color: var(--primary-color);
+}
+
+.toggle-switch input:checked + .slider:before {
+  transform: translateX(24px);
+  content: "☀️";
+}
+
+
+
+/* Light Mode Fix - Ensures Visibility */
+:root:has(#theme-toggle:checked) .hero-overlay {
+  color: rgb(var(--text-color));
+  /*background-color: rgba(255, 255, 255, 0.6);*/
+}
+
+:root:has(#theme-toggle:checked) .hero-overlay h1 {
+  color: rgb(var(--text-color));
+  text-shadow: none;
+}
+
+:root:has(#theme-toggle:checked) .hero-overlay p {
+  color: rgb(var(--text-color));
+  text-shadow: none;
+}
+
+/* Hero Section - Parallax with Moon, Stars & Shooting Stars */
+.hero {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background: url('https://via.placeholder.com/1920x1080') center/cover no-repeat fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  overflow: hidden;
+}
+
+/* Hero Overlay */
+.hero-overlay {
+  /* position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center; */
+  /* background-color: var(--overlay-color); */
+  /* backdrop-filter: blur(18px); */
+  --parallax-speed: 5;
+  z-index: 1;
+  padding: 3rem;
+  border-radius: 1rem;
+}
+
+/* Hero Text Styling */
+.hero-overlay h1 {
+  font-size: 4rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
+  margin-bottom: 1rem;
+}
+
+.hero-overlay p {
+  font-size: 1.6rem;
+  color: white;
+  max-width: 800px;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+}
+
+/* Animated Moon */
+.moony {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  --parallax-speed: 5;
+}
+.moon {
+  position: absolute;
+  top: 15%;
+  right: 10%;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, #fefae0, #c9ada7);
+  border-radius: 50%;
+  box-shadow: 0px 0px 40px rgba(255, 255, 255, 0.7);
+  animation: float 5s ease-in-out infinite alternate;
+}
+
+/* Soft Moon Glow */
+.moon::after {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.126), transparent);
+  top: -30px;
+  left: -30px;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+/* Floating Clouds */
+.clouds {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  --parallax-speed: 3;
+}
+
+.cloud {
+  position: absolute;
+  width: 180px;
+  height: 80px;
+  background: white;
+  border-radius: 50px;
+  filter: blur(8px);
+  opacity: 0.8;
+  --parallax-speed: 7;
+}
+
+.cloud1 {
+  top: 30%;
+  left: -10%;
+  animation-delay: 2s;
+  --dir: 1;
+  animation: moveClouds 20s linear infinite;
+}
+
+.cloud2 {
+  top: 60%;
+  right: 50%;
+  animation-delay: 0s;
+  --dir: 1;
+  animation: moveClouds 20s linear infinite;
+}
+
+/* Twinkling Stars */
+.stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  --parallax-speed: 0;
+}
+
+.star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  animation: twinkle 2s infinite alternate;
+}
+
+/* Randomly place 30 stars */
+.star:nth-child(1) { top: 10%; left: 20%; animation-duration: 1.5s; }
+.star:nth-child(2) { top: 30%; left: 60%; animation-duration: 2s; }
+.star:nth-child(3) { top: 50%; left: 10%; animation-duration: 1s; }
+.star:nth-child(4) { top: 70%; left: 80%; animation-duration: 2.5s; }
+.star:nth-child(5) { top: 20%; left: 40%; animation-duration: 1.8s; }
+.star:nth-child(6) { top: 80%; left: 90%; animation-duration: 2.2s; }
+.star:nth-child(7) { top: 15%; left: 70%; animation-duration: 1.6s; }
+.star:nth-child(8) { top: 40%; left: 50%; animation-duration: 2.1s; }
+.star:nth-child(9) { top: 60%; left: 30%; animation-duration: 1.4s; }
+.star:nth-child(10) { top: 85%; left: 20%; animation-duration: 2.3s; }
+
+.hero > * {
+  animation: parallax ease-in-out;
+  animation-timeline: scroll(root);
+}
+
+/* Keyframes */
+@keyframes parallax {
+  to {
+    transform: translateY(calc(var(--parallax-speed) * 200px));
+  }
+}
+
+@keyframes float {
+  from {
+    transform: translateY(-10px);
+  }
+  to {
+    transform: translateY(10px);
+  }
+}
+
+@keyframes moveClouds {
+  from {
+    transform: translateX(calc(-20vw*var(--dir)));
+  }
+  to {
+    transform: translateX(calc(100vw*var(--dir)));
+  }
+}
+
+@keyframes twinkle {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+/* Light Mode Adjustments */
+/* :root:has(#theme-toggle:checked) .moon {
+  background: radial-gradient(circle, #f4e4c1, #e6c89c);
+  box-shadow: 0px 0px 30px rgba(255, 200, 100, 0.5);
+}
+
+/* Add a Soft Moon Texture Effect */
+/*:root:has(#theme-toggle:checked) .moon::after {
+  background: radial-gradient(circle, rgba(255, 204, 102, 0.2), transparent);
+}
+
+:root:has(#theme-toggle:checked) .cloud {
+  background: var(--secondary-color);
+  opacity: 0.7;
+} */
+:root:has(#theme-toggle:checked) .hero {
+  background: radial-gradient(ellipse at 85% 25%, rgb(251, 178, 141) 0%,rgb(248, 132, 192) 10%,rgb(134, 186, 250) 70%)
+}
+
+/* 🌕 Light Mode Moon - Softer Glow & Sun Effect */
+:root:has(#theme-toggle:checked) .moon {
+  background: radial-gradient(circle, #f4e4c1, #e6c89c);
+  box-shadow: 0px 0px 50px rgba(255, 195, 92, 0.9);
+}
+
+/* ☀️ Light Mode Sun Glow Behind the Moon */
+:root:has(#theme-toggle:checked) .moon::before {
+  content: "";
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(241, 175, 205, 0.3), transparent);
+  top: -40px;
+  left: -40px;
+  border-radius: 50%;
+  z-index: -2;
+}
+
+/* ☁️ Light Mode Clouds - Softer Pastel Colors */
+:root:has(#theme-toggle:checked) .cloud {
+  background: rgba(234, 237, 244, 0.9); /* Soft blue-gray */
+  opacity: 0.85;
+  filter: blur(12px);
+}
+
+/* 🌟 Light Mode Stars - More Subtle */
+:root:has(#theme-toggle:checked) .star {
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0.5;
+}
+
+
+
+/* Sections - Proper Spacing */
+.content-section {
+  padding: 6rem 10%;
+  text-align: center;
+}
+
+.content-section h2 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+}
+
+.content-section p {
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+#about {
+  outline: rgba(var(--text-color), 0);
+  outline-style: dotted;
+  outline-offset: -2rem;
+  transition: outline 0.3s ease-in-out;
+}
+#about:hover {
+  outline: rgba(var(--text-color), 0.4);
+  outline-style: dotted;
+  outline-offset: -2rem; 
+}
+
+/* Services Section - Card Grid */
+.card-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.card {
+  background: var(--secondary-color);
+  padding: 2rem;
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: rgb(var(--text-color));
+  width: 300px;
+  text-align: center;
+}
+
+.card h3 {
+  color: var(--primary-color);
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(var(--text-color), 0.4);
+}
+
+:root:has(#theme-toggle:checked) .content-section {
+  background: rgb(134, 186, 250);
+} 
+
+:root:has(#theme-toggle:checked) #services {
+  background: linear-gradient(rgb(134, 186, 250), rgb(131, 254, 254));
+}
+
+/* :root:has(#theme-toggle:checked) #services {
+  background: rgba(255, 255, 255, 0.6);
+} */
+
+
+
+/* Footer */
+.footer {
+  background-color: var(--overlay-color);
+  text-align: center;
+  padding: 1.5rem;
+  padding-top: 4rem;
+}
+
+.social-icons a {
+  color: rgb(var(--text-color));
+  margin: 0 0.5rem;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: var(--primary-color);
+}
